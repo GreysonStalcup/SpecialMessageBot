@@ -1,5 +1,6 @@
 
 require('dotenv').config();
+const fs = require('fs');
 const channelID = ''; //channelID to watch
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
@@ -10,6 +11,11 @@ const client = new discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_
 //get channel 
 const targetChannel = client.channels.cache.get(channelID);
 
+function getInsult(){
+    
+
+
+}
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
 })
@@ -17,47 +23,62 @@ client.on("ready", () => {
 client.on("message", msg => {
     if(msg.content === 'ping') {
         msg.reply("pong");
+    } else if (msg.content.toLowerCase() === 'fuck you') {
+        msg.reply("NO, FUCK YOU!");
     }
 })
 client.on('voiceStateUpdate', (oldState, newState) => {
-    console.log(newState);
-    console.log(newState.id)
-    console.log(newState.name)
-    const targetChannel = client.channels.cache.get('969767903027163196');
-    if(!targetChannel) console.log("Failed to find channel");
-    if(targetChannel) console.log("Found target channel");
+    const targetChannel = client.channels.cache.get('969804063992578058');
+    
+    
     if(targetChannel.full){ 
-        console.log("full");
+        
+        console.log("Joined specific channel");
+        //kick player from channel
+        newState.member.voice.disconnect();
+        // @TODO: sleep 5 seconds
+       // 
+       fs.readFile('assets/insults.txt', 'utf-8', (err, data) => {
+        if(err) {
+            console.error(err);
+            return;
+        }
+        let insultArray = data.split('\n');
+        randomNumber = Math.floor(Math.random() * insultArray.length);
+        insultArray = insultArray[randomNumber];
+        newState.member.send(insultArray);
+
+        console.log(`sent ${newState.member.nickname} the insult ${insultArray}`)
+    })
+        
+       
+    
     } else {
-        console.log("joinable")
+        //do nothing
     }
 })
 //const targetChannel = client.channels.cache.find(channel => channel.name === "SpMsgChat");
 
 
 client.login(process.env.DISCORD_BOT_TOKEN);
-const commands = [{
-    name: 'ping',
-    description: 'Replies with a pong'
-}];
+//const commands = [{
+//    name: 'ping',
+//    description: 'Replies with a pong'
+//}];
 
-const rest = new REST({ version: '9'}).setToken('tokenhere');
 
-(async() => {
-    try{
-        console.log('Discord bot is now listening in shadows twilight');
 
-        await rest.put(
-            Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
-            {
-                body: commands
-            },
-        );
-    } catch(error) { console.log(`Error! Error backtrace: ${error}`);
+
+
+function sendMessage(messageText) {
+    try {
+       
+    
+    } catch(err) {
+        console.log(err);
+        return false
+    }
+          
+    console.log("Sent message");
 }
-})();
 
-function checkChannel(){
-
-
-}
