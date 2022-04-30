@@ -8,7 +8,7 @@ This bot will send anyone that joins a specified Voice Chat a message at random 
 
 ## TODO 
 
-[x]Get bot account registered
-[x]Add bot to server
-[x]
-[  ]
+[x]Get bot account registered  
+[x]Add bot to server  
+[x]  
+[  ]  
