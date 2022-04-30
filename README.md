@@ -15,17 +15,13 @@ This bot will send anyone that joins a specified Voice Chat a message at random 
         - VoiceChannel****[.members](https://discord.js.org/#/docs/discord.js/stable/class/VoiceChannel?scrollTo=members) →** This returns a “Snowflake”(or Unique ID basically), and the GuildMember.  GUILD == Server, Guild MEMBER == server member.
     - Then, GuildMember.createDM() can be used to send a message to the member.
     - then kick them from VC ← this is important part
-    
-
-### Questions
-
-- [ ]  Only 1 slot in the voice channel?
-    - [ ]  yes, because the whole purpose of the bot was to join → send message → kick player from VC. only 1 slot needed because intheory if it works correctly they would only be in the channel for like 5 seconds.
 
 
 ## TODO 
 
 [x]Get bot account registered  
 [x]Add bot to server  
-[x]  
-[  ]  
+[x]kick player when they join specified channel  
+[x]send player random message from insult list
+[x]make bot standalone
+[  ]add functionality....not sure what yet
