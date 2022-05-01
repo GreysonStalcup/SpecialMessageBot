@@ -24,4 +24,5 @@ This bot will send anyone that joins a specified Voice Chat a message at random 
 [x]kick player when they join specified channel  
 [x]send player random message from insult list
 [x]make bot standalone
-[  ]add functionality....not sure what yet
+[  ] make bot log to console who gets sent what insult
+[  ] add functionality....not sure what yet
