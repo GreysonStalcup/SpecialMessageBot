@@ -60,7 +60,7 @@ client.on('voiceStateUpdate', (oldState, newState) => {
         }
         let insultArray = data.split('\n');
         randomNumber = Math.floor(Math.random() * insultArray.length);
-        insultArray = insultArray[randomNumber];
+        insultArray = insultArray[randomNumber].toUpperCase();
         newState.member.send(insultArray);
         //Log message
         client.channels.cache.get('972313196113330276').send(`Sent ${newState.member} the insult ${insultArray}`)
