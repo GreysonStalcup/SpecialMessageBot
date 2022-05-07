@@ -5,6 +5,7 @@ const channelID = ''; //channelID to watch
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const discord = require('discord.js');
+const config = require("./config.json");
 
 const client = new discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]});
 
@@ -21,6 +22,20 @@ client.on("ready", () => {
 })
 
 client.on("message", msg => {
+
+    //if(msg.author.bot) return;
+
+    //if(msg.content.indexOf(config.prefix) !== 0) return;
+
+    const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
+    const cmd = args.shift().toLowerCase();
+
+    if(cmd === 'call') {
+        let member = msg.mentions.members.first();
+        member.send("Get in chat you bitch!");
+
+    }
+
     if(msg.content === 'ping') {
         msg.reply("pong");
     } else if (msg.content.toLowerCase() === 'fuck you') {
@@ -47,6 +62,8 @@ client.on('voiceStateUpdate', (oldState, newState) => {
         randomNumber = Math.floor(Math.random() * insultArray.length);
         insultArray = insultArray[randomNumber];
         newState.member.send(insultArray);
+        //Log message
+        client.channels.cache.get('972313196113330276').send(`Sent ${newState.member} the insult ${insultArray}`)
 
         console.log(`sent ${newState.member.nickname} the insult ${insultArray}`)
     })
