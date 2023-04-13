@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
 const fetch = require("node-fetch");
 
 const data = new ContextMenuCommandBuilder()
@@ -18,8 +18,39 @@ module.exports = {
     await interaction.targetUser.send(`${username}, ${insult}`);
     //reply to the interaction
     await interaction.reply({
-      content: `Sent (hoping only i can see this) ${username} the insult: "${insult}"`,
+      content: `Sent ${username} the insult: "${insult}"`,
       ephemeral: true
+    }).then(() => {
+      //post the insult in the bot log channel
+      const botLogChannel = interaction.guild.channels.cache.find(channel => channel.name === 'spmsglog');
+      
+      //generate random hex color
+      const randomColor = Math.floor(Math.random()*16777215).toString(16);
+
+      const embed = new EmbedBuilder()
+        .setColor(`#${randomColor}`)
+        .setTitle('Insult Sent')
+        .addFields({
+          name: 'Initiated by',
+          value: `@${interaction.user.username}`,
+          inline: true
+        }, {
+          name: 'Sent to',
+          //link to the user
+          value: `@${username}`,
+          inline: true
+        }, {
+          name: 'Insult',
+          value: `${insult}`,
+          inline: false
+        },)
+        //set iconURL to the bots avatar
+        .setAuthor({
+          name: "SpMsgBot",
+          iconURL: interaction.client.user.avatarURL()
+        }).setTimestamp();
+  
+        botLogChannel.send({ embeds: [embed]});
     });
     }
 };
