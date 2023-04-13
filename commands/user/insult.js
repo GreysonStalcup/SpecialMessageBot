@@ -17,6 +17,9 @@ module.exports = {
     //dm the user the insult
     await interaction.targetUser.send(`${username}, ${insult}`);
     //reply to the interaction
-    await interaction.reply(`Sent ${username} the insult: "${insult}"`);
+    await interaction.reply({
+      content: `Sent (hoping only i can see this) ${username} the insult: "${insult}"`,
+      ephemeral: true
+    });
     }
 };
