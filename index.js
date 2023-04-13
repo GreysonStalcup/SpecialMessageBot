@@ -4,10 +4,19 @@ const fs = require('fs');
 const channelID = ''; //channelID to watch
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const discord = require('discord.js');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const Discord = require('discord.js');
 const config = require("./config.json");
-
-const client = new discord.Client({intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]});
+const token = process.env.DISCORD_BOT_TOKEN;
+const client = new Discord.Client(
+    {
+        // intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"]
+        intents: [
+            GatewayIntentBits.Guilds, 
+            GatewayIntentBits.GuildMessages,
+        ]
+    }
+);
 
 //get channel 
 const targetChannel = client.channels.cache.get(channelID);
@@ -77,7 +86,7 @@ client.on('voiceStateUpdate', (oldState, newState) => {
 //const targetChannel = client.channels.cache.find(channel => channel.name === "SpMsgChat");
 
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login(token);
 //const commands = [{
 //    name: 'ping',
 //    description: 'Replies with a pong'
