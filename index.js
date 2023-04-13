@@ -15,7 +15,11 @@ const client = new Discord.Client(
         intents: [
             GatewayIntentBits.Guilds, 
             GatewayIntentBits.GuildMessages,
-        ]
+            GatewayIntentBits.GuildVoiceStates,
+            GatewayIntentBits.GuildMessageReactions,
+            GatewayIntentBits.GuildMessageTyping,
+            GatewayIntentBits.GuildMembers,
+        ], fetchAllMembers: true
     }
 );
 
@@ -71,6 +75,10 @@ client.on(Events.InteractionCreate, interaction => {
 });
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag}`);
+    //set bot activity to "Playing with your mom"
+    client.user.setActivity("with your mom");
+
+    
 })
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
@@ -157,7 +165,7 @@ client.login(token);
 
 
 
-
+//on startup, create a user and bot count channel 
 
 function sendMessage(messageText) {
     try {
