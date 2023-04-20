@@ -9,6 +9,13 @@ async function getInsult(){
     const json = await res.json();
     return json.insult;
 }
+function getRandomHexColor() {
+  let hexColor;
+  do {
+    hexColor = Math.floor(Math.random() * 16777216).toString(16); // Generate a random integer between 0 and 16777215 and convert it to hex string
+  } while (hexColor.length < 6 || hexColor.length > 6 || !/^[0-9a-fA-F]+$/.test(hexColor)); // Check if the hex string is exactly 6 characters long and consists of only valid hex characters
+  return "#" + hexColor;
+}
 module.exports = {
   data,
   async execute(interaction) {
@@ -25,8 +32,7 @@ module.exports = {
       const botLogChannel = interaction.guild.channels.cache.find(channel => channel.name === 'spmsglog');
       
       //generate random hex color
-      const randomColor = Math.floor(Math.random()*16777215).toString(16);
-
+      const randomColor = getRandomHexColor();
       const embed = new EmbedBuilder()
         .setColor(`#${randomColor}`)
         .setTitle('Insult Sent')
