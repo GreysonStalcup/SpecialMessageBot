@@ -34,7 +34,7 @@ module.exports = {
       //generate random hex color
       const randomColor = getRandomHexColor();
       const embed = new EmbedBuilder()
-        .setColor(`#${randomColor}`)
+        .setColor(`${randomColor}`)
         .setTitle('Insult Sent')
         .addFields({
           name: 'Initiated by',
